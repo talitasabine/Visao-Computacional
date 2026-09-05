@@ -1,0 +1,28 @@
+import cv2
+#img = cv2.imread("C:/Users/Aluno/Downloads/praiadosono.jpg")
+#img = cv2.convertScaleAbs(img, alpha=3.5, beta=20)
+#cv2.imshow("Imagem", img)
+#cv2.waitKey(0)
+#cv2.destroyAllWindows()
+
+import numpy as np
+#1 carregar as duas imagens
+imagem1 = cv2.imread ('imagem1.jpg')
+imagem2 = cv2.imread ('imagem2.jpg')
+
+#ambas as imagens precisam ter a mesma altura (numero de linhas)
+# se forem de tamanhos diferentes é necessário ajustar o tamanho de pelo menos 1 delas.
+
+altura = 400
+largura = 500
+
+imagem1 = cv2.resize(imagem1, (largura, altura))
+imagem2 = cv2.resize(imagem2, (largura, altura))
+
+#2 concatenar as imagens lado a lado opção A (usando opencv):
+resultado = cv2.hconcat ([imagem1, imagem2])
+cv2.imshow ("Imagens concatenadas", resultado)
+cv2.imwrite("ResultadoConcat.jpg", resultado)
+#esperar pressionar qualquer telcla e fechar janela
+cv2.waitKey(0)
+cv2.destroyAllWindows()
