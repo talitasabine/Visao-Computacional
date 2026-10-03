@@ -1,0 +1,55 @@
+
+import cv2
+import numpy as np
+
+# 1. Carregar a imagem
+img = cv2.imread("C:/Users/Aluno/Downloads/cupinzeiro.jpeg")
+
+if img is None:
+    raise FileNotFoundError("Não foi possível abrir a imagem.")
+
+# 2. Criar uma máscara para o crescimento de regiões
+h, w = img.shape[:2]
+mask = np.zeros((h + 2, w + 2), np.uint8)
+
+# 3. Definir a semente dentro do cupinzeiro (x, y)
+semente = (700, 500)
+
+# 4. Criar uma cópia para aplicar o crescimento
+resultado = img.copy()
+
+# 5. Aplicar crescimento de regiões
+# Os valores de tolerância podem ser ajustados
+flags = 4 | cv2.FLOODFILL_FIXED_RANGE | cv2.FLOODFILL_MASK_ONLY
+
+cv2.floodFill(
+    img.copy(),
+    mask,
+    semente,
+    (0, 0, 0),
+    loDiff=(20, 20, 20),
+    upDiff=(20, 20, 20),
+    flags=flags
+)
+
+# 6. Extrair a região selecionada da máscara
+regiao = mask[1:-1, 1:-1]
+regiao_binaria = np.where(regiao != 0, 255, 0).astype(np.uint8)
+
+# 7. Calcular a área da região em pixels
+area = cv2.countNonZero(regiao_binaria)
+print(f"Área da região: {area} pixels²")
+
+# 8. Aplicar uma cor verde suave com transparência
+sobreposicao = resultado.copy()
+sobreposicao[regiao_binaria > 0] = (70, 150, 70)
+
+final = cv2.addWeighted(resultado, 0.75, sobreposicao, 0.25, 0)
+
+# 9. Mostrar os resultados
+cv2.imshow("Imagem original", resultado)
+cv2.imshow("Mascara da regiao", regiao_binaria)
+cv2.imshow("Crescimento de regioes", final)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
