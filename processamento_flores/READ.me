@@ -1,0 +1,23 @@
+### Validação do algoritmo com imagens sintéticas
+
+Para avaliar o funcionamento do método de segmentação, foram criadas três imagens sintéticas 
+contendo círculos coloridos com dimensões e quantidades de pixels previamente conhecidas.
+
+Em seguida, foi aplicado o mesmo método de segmentação por cores utilizando o espaço HSV. Os pixels 
+identificados pelo algoritmo foram comparados com as máscaras de referência, que representam a quantidade 
+real de pixels de cada imagem.
+
+Os resultados demonstraram que as três imagens apresentaram correspondência exata entre os pixels reais e os 
+pixels detectados, resultando em erro percentual de 0% em todos os testes.
+
+
+
+   | Imagem |      |Pixels reais |    | Pixels detectados |    | Erro |
+
+| Sintética 1 |      | 10.214 |            | 10.214 |           | 0% |
+| Sintética 2 |      | 29.111 |            | 29.111 |           | 0% |
+| Sintética 3 |      | 35.785 |            | 35.785 |           | 0% |
+
+
+Essa validação demonstra que o método funciona corretamente em imagens controladas, embora seu desempenho 
+em fotografias reais ainda dependa das condições de iluminação e das características das flores.
